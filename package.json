@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://qi2507960-cyber.github.io/gaem233", // 放在根层级
-  "scripts": { // 放在根层级
+  "homepage": "https://qi2507960-cyber.github.io/gaem233", 
+  "scripts": { 
     "dev": "vite",
-    "build": "vite build", // 你的项目是Vite+React，保留原build命令
+    "build": "vite build", 
     "preview": "vite preview",
-    "deploy": "gh-pages -d dist" // 新增部署脚本
+    "deploy": "gh-pages -d dist" 
   },
   "dependencies": {
     "react-dom": "^19.2.1",
