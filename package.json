@@ -3,29 +3,23 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
+  "homepage": "https://qi2507960-cyber.github.io/gaem233", // 放在根层级
+  "scripts": { // 放在根层级
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build", // 你的项目是Vite+React，保留原build命令
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist" // 新增部署脚本
   },
   "dependencies": {
     "react-dom": "^19.2.1",
-    "@google/genai": "^1.31.0",
+    "@google/generative-ai": "^1.31.0",
     "lucide-react": "^0.556.0",
     "react": "^19.2.1"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",
     "@vitejs/plugin-react": "^5.0.0",
-    "typescript": "~5.8.2",
+    "typescript": "^5.8.2",
     "vite": "^6.2.0"
-  }
-}
-{
-  "homepage": "https://qi2507960-cyber.github.io/gaem233", // 必须和你的GitHub Pages地址一致
-  "scripts": {
-    // 保留你原有的脚本（如"dev": "vite"）
-    "build": "vue-tsc && vite build", // 这是Vue项目的默认构建命令，若你是其他项目，保留自己的build命令
-    "deploy": "gh-pages -d dist" // 新增这行，指定将dist文件夹推送到gh-pages分支
   }
 }
