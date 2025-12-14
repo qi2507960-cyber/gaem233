@@ -21,3 +21,11 @@
     "vite": "^6.2.0"
   }
 }
+{
+  "homepage": "https://qi2507960-cyber.github.io/gaem233", // 必须和你的GitHub Pages地址一致
+  "scripts": {
+    // 保留你原有的脚本（如"dev": "vite"）
+    "build": "vue-tsc && vite build", // 这是Vue项目的默认构建命令，若你是其他项目，保留自己的build命令
+    "deploy": "gh-pages -d dist" // 新增这行，指定将dist文件夹推送到gh-pages分支
+  }
+}
