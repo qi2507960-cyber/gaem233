@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>失踪的上清寺</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'game-red': '#ff003c', /* Neon Red */
+              'game-blue': '#00f3ff', /* Cyan/Holo */
+              'game-dark': '#050505',
+              'crt-green': '#33ff00',
+            },
+            fontFamily: {
+              serif: ['"Noto Serif SC"', 'serif'],
+              mono: ['"Courier New"', 'monospace'],
+            },
+            animation: {
+              'pulse-fast': 'pulse 0.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'glitch': 'glitch 1s linear infinite',
+              'scan': 'scan 8s linear infinite',
+              'flicker': 'flicker 0.15s infinite',
+            },
+            keyframes: {
+              glitch: {
+                '2%, 64%': { transform: 'translate(2px,0) skew(0deg)' },
+                '4%, 60%': { transform: 'translate(-2px,0) skew(0deg)' },
+                '62%': { transform: 'translate(0,0) skew(5deg)' },
+              },
+              scan: {
+                '0%': { transform: 'translateY(-100%)' },
+                '100%': { transform: 'translateY(100%)' }
+              },
+              flicker: {
+                '0%': { opacity: '0.97' },
+                '50%': { opacity: '1' },
+                '100%': { opacity: '0.98' }
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        background-color: #000;
+        color: #e4e4e7;
+        overflow-x: hidden;
+        margin: 0;
+      }
+
+      /* CRT Monitor Effects */
+      .crt-screen {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      /* Scanlines */
+      .scanlines {
+        background: linear-gradient(
+          to bottom,
+          rgba(255,255,255,0),
+          rgba(255,255,255,0) 50%,
+          rgba(0,0,0,0.3) 50%,
+          rgba(0,0,0,0.3)
+        );
+        background-size: 100% 4px;
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        z-index: 998;
+        pointer-events: none;
+      }
+
+      /* CRT Curve Vignette */
+      .vignette {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        box-shadow: 0 0 150px rgba(0,0,0,0.9) inset;
+        z-index: 999;
+        pointer-events: none;
+      }
+
+      /* Moving Scanline Bar */
+      .scanline-bar {
+        width: 100%;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.1);
+        opacity: 0.4;
+        position: absolute;
+        z-index: 999;
+        animation: scan 6s linear infinite;
+        pointer-events: none;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+
+      /* Phosphor Glow Text - Weakened Intensity */
+      .text-glow-red {
+        text-shadow: 0 0 2px #ff003c, 0 0 8px #ff003c;
+      }
+      .text-glow-blue {
+        text-shadow: 0 0 2px #00f3ff, 0 0 8px #00f3ff;
+      }
+      .text-glow-green {
+        text-shadow: 0 0 2px #33ff00, 0 0 8px #33ff00;
+      }
+
+      /* Holographic Card Style */
+      .holo-card {
+        background: rgba(0, 20, 40, 0.6);
+        border: 1px solid rgba(0, 243, 255, 0.3);
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.1), inset 0 0 20px rgba(0, 243, 255, 0.05);
+        backdrop-filter: blur(4px);
+        position: relative;
+      }
+      .holo-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.8), transparent);
+      }
+      .holo-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0; right: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.8), transparent);
+      }
+
+      /* Grid Background */
+      .retro-grid {
+        background-image: 
+          linear-gradient(rgba(0, 243, 255, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 243, 255, 0.1) 1px, transparent 1px);
+        background-size: 40px 40px;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        transform: perspective(500px) rotateX(20deg) scale(1.5);
+        opacity: 0.2;
+        pointer-events: none;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #050505; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #b91c1c; 
+        border-radius: 2px;
+      }
+    </style>
+
+<link rel="stylesheet" href="/index.css">
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "react": "https://aistudiocdn.com/react@^19.2.1"
+  }
+}
+</script>
+  <script type="module" crossorigin src="/assets/index-DKzV5O_l.js"></script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
